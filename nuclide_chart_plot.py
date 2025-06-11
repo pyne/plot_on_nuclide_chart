@@ -4,6 +4,9 @@ from pyne import nucname
 def nuclide_chart_plot(nuclide_datamap):
     """Generate a plot of data, provided per nuclide, in a visualiation
     that looks like a typical chart of the nuclides.
+
+    Based on implementation suggested by Nick Touran
+    https://terrapower.github.io/armi/gallery/framework/run_chartOfNuclides.html
     
     input
     -----
