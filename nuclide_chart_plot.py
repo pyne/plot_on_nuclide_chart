@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import numpy as np
 import pyne.data as data
 import pyne.nucname as nucname
@@ -47,19 +48,22 @@ def nuclide_chart_plot(fresh_material, full_nuclide_list, decay_time=0, response
         N = nucname.anum(nuclide) - Z
         if N > 0:
             if nuclide in material and material[nuclide] > 0:
-                plot_data.append((Z, N, np.log(material[nuclide])))
+                plot_data.append((Z, N, material[nuclide]))
             else:
                 plot_no_data.append((Z, N, 0))
     z, n, c = zip(*plot_data)
-    zn, nn, cn = zip(*plot_no_data)
+    zn, nn, _ = zip(*plot_no_data)
     plt.figure(figsize=(12, 8))
     plt.scatter(nn, zn, c="gray", marker=".", s=1)
-    plt.scatter(n, z, c=c, marker="s", s=6)
+    plt.scatter(n, z, c=c, marker="s", s=6, 
+                norm='log', vmin=np.max(c)/1e6,
+                cmap=mpl.colormaps['Oranges'])
     plt.title("Chart of the nuclides")
     plt.xlabel("Number of neutrons (N)")
     plt.ylabel("Number of protons (Z)")
     plt.xlim(left=0)
     plt.ylim(bottom=0)
+    plt.colorbar()
     plt.show()
 
 def test_code():
