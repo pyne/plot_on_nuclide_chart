@@ -58,6 +58,8 @@ def nuclide_chart_plot(fresh_material, full_nuclide_list, decay_time=0, response
     plt.title("Chart of the nuclides")
     plt.xlabel("Number of neutrons (N)")
     plt.ylabel("Number of protons (Z)")
+    plt.xlim(left=0)
+    plt.ylim(bottom=0)
     plt.show()
 
 def test_code():
