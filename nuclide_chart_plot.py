@@ -53,7 +53,7 @@ def nuclide_chart_plot(fresh_material, full_nuclide_list, decay_time=0, response
                 plot_no_data.append((Z, N, 0))
     z, n, c = zip(*plot_data)
     zn, nn, _ = zip(*plot_no_data)
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(15, 8))
     plt.scatter(nn, zn, c="gray", marker=".", s=1)
     plt.scatter(n, z, c=c, marker="s", s=6, 
                 norm='log', vmin=np.max(c)/1e6,
