@@ -29,8 +29,12 @@ def nuclide_chart_plot(fresh_material, full_nuclide_list, decay_time=0, response
     nuclide_datamap: dict(nucname: doube) 
                      provides data for each of a set of nuclides given as nucnames
     """
+    material = fresh_material
 
-    material = fresh_material.decay(decay_time)
+    one_day = 24*60*60
+    if decay_time > one_day:
+        material = fresh_material.decay(decay_time)
+
     if response == "decay_heat":
         material = material.decay_heat()
     elif response == "dose":
@@ -42,7 +46,7 @@ def nuclide_chart_plot(fresh_material, full_nuclide_list, decay_time=0, response
         Z = nucname.znum(nuclide)
         N = nucname.anum(nuclide) - Z
         if N > 0:
-            if nuclide in material:
+            if nuclide in material and material[nuclide] > 0:
                 plot_data.append((Z, N, np.log(material[nuclide])))
             else:
                 plot_no_data.append((Z, N, 0))
